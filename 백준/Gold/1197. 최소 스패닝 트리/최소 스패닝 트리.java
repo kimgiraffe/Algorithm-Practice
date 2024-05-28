@@ -8,15 +8,10 @@ import java.util.StringTokenizer;
  * 최소_스패닝_트리
  */
 public class Main {
-
   static BufferedReader br;
   static StringTokenizer st;
 
   static int V, E;
-
-  static int[] parent;
-  static Edge[] edges;
-  static int answer, count;
 
   static class Edge implements Comparable<Edge> {
     int from;
@@ -35,6 +30,11 @@ public class Main {
     }
   }
 
+  static Edge[] edges;
+  static int[] parent;
+  static int answer; // MST의 가중치
+  static int count; // 연결된 간선의 수
+
   static void make() {
     for (int idx = 0; idx <= V; idx++) {
       parent[idx] = idx;
@@ -45,7 +45,6 @@ public class Main {
     if (parent[a] == a) {
       return a;
     }
-
     return parent[a] = find(parent[a]);
   }
 
@@ -57,6 +56,7 @@ public class Main {
       return false;
     }
     parent[bRoot] = aRoot;
+
     return true;
   }
 
@@ -66,13 +66,11 @@ public class Main {
 
     V = Integer.parseInt(st.nextToken());
     E = Integer.parseInt(st.nextToken());
-
-    parent = new int[V + 1];
     edges = new Edge[E];
+    parent = new int[V + 1];
 
     for (int idx = 0; idx < E; idx++) {
       st = new StringTokenizer(br.readLine().trim());
-
       int from = Integer.parseInt(st.nextToken());
       int to = Integer.parseInt(st.nextToken());
       int weight = Integer.parseInt(st.nextToken());
@@ -86,12 +84,12 @@ public class Main {
     for (Edge edge : edges) {
       if (union(edge.from, edge.to)) {
         answer += edge.weight;
-        if (++count == V - 1)
+        if (++count == V - 1) {
           break;
+        }
       }
     }
 
     System.out.println(answer);
-
   }
 }
