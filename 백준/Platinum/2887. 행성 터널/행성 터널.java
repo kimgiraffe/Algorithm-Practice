@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -43,15 +45,10 @@ public class Main {
     public int compareTo(Edge o) {
       return Integer.compare(this.weight, o.weight);
     }
-
-    @Override
-    public String toString() {
-      return this.from + " " + this.to + " " + this.weight;
-    }
   }
 
   static Planet[] planets;
-  static PriorityQueue<Edge> edges;
+  static List<Edge> edges;
   static int[] parent;
   static int answer;
 
@@ -84,7 +81,7 @@ public class Main {
     N = Integer.parseInt(br.readLine().trim());
 
     planets = new Planet[N];
-    edges = new PriorityQueue<>();
+    edges = new ArrayList<>();
     parent = new int[N];
 
     for (int idx = 0; idx < N; idx++) {
@@ -117,8 +114,9 @@ public class Main {
 
     make();
 
-    while (!edges.isEmpty()) {
-      Edge edge = edges.poll();
+    Collections.sort(edges);
+
+    for (Edge edge : edges) {
       if (union(edge.from, edge.to)) {
         answer += edge.weight;
         if (++count == N - 1) {
