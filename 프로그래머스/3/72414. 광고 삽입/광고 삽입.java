@@ -20,8 +20,6 @@ class Solution {
         counts = new long[playTime + 1];
         for(String log : logs) {
             String[] l = log.split("-");
-            String[] s = l[0].split(":");
-            String[] e = l[1].split(":");
             
             int startTime = timeToSeconds(l[0]);
             int endTime = timeToSeconds(l[1]);
