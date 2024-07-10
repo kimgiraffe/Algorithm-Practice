@@ -45,7 +45,7 @@ class Solution {
         
         for(int row = 0; row < N; row++) {
             for(int col = 0; col < N; col++) {
-                if(lock[row][col] == 1) {
+                if(lock[row][col] == 1) { // 자물쇠의 돌기 부분인 경우...
                     continue;
                 }
                 for(Pos target : list) {
@@ -54,7 +54,7 @@ class Solution {
                     for(Pos pos : list) {
                         int nextRow = pos.row - target.row;
                         int nextCol = pos.col - target.col;
-                        if(nextRow == 0 && nextCol == 0) {
+                        if(nextRow == 0 && nextCol == 0) { // 자기 자신
                             continue;
                         }
                         
@@ -64,8 +64,8 @@ class Solution {
                             continue;
                         }
                         
-                        if(lock[checkRow][checkCol] == 1) {
-                            flag = false;
+                        if(lock[checkRow][checkCol] == 1) { // 자물쇠의 돌기 부분
+                            flag = false; // 열 수 없음
                             break;
                         } else {
                             sum++;
