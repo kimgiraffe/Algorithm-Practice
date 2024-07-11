@@ -1,31 +1,26 @@
 import java.util.*;
 
 class Solution {
-    static List<Integer> tuple;
+    static Set<Integer> tuple;
     
     public int[] solution(String s) {
-        tuple = new ArrayList<>();
+        tuple = new HashSet<>();
         
-        String[] input = s.split("\\},\\{");
-        input[0] = input[0].replace("{{", "");
-        input[input.length - 1] = input[input.length - 1].replace("}}", "");
+        String[] input = s.replaceAll("[{]", " ").replaceAll("[}]", " ").trim().split(" , ");
         
         Arrays.sort(input, (s1, s2) -> s1.length() - s2.length());
         
+        int[] answer = new int[input.length];
+        int idx = 0;
         for(String str : input) {
-            String[] splitted = str.split(",");
-            for(String e : splitted) {
+            for(String e : str.split(",")) {
                 int num = Integer.parseInt(e);
-                if(!tuple.contains(num)) {
-                    tuple.add(num);
+                if(tuple.add(num)) {
+                    answer[idx++] = num;
                 }
             }
         }
-        
-        int[] answer = new int[tuple.size()];
-        for(int idx = 0; idx < tuple.size(); idx++) {
-            answer[idx] = tuple.get(idx);
-        }
+
         return answer;
     }
 }
